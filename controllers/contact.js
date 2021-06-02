@@ -1,20 +1,22 @@
+
 const Contacts = require('../repositories/contacts');
 
 const listContactsAll = async (req, res, next) => {
-    const contacts = await Contacts.listContactsAll();
-    res.json({
-      status: "success",
-      code: 200,
-      data: {
-        contacts,
-      },
-    });
+  console.log('Hi')
+  try {
+    const contact = await Contacts.listContactsAll()
+    return res.json({ status: 'success', code: 200, data: { contact } })
+  } catch (e) {
+    next(e)
+  }
   
     // next(e);
   };
   
   const getContactById = async (req, res, next) => {
+  
     try {
+     
       const contact = await Contacts.getContactById(req.params.contactId);
       if (contact) {
   console.log(contact);

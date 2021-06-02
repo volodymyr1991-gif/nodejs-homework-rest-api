@@ -1,5 +1,4 @@
 const mongoose = require('mongoose')
-
 require('dotenv').config()
 const uriDb = process.env.URI_DB
 
@@ -8,10 +7,10 @@ const db = mongoose.connect(uriDb, {
     useUnifiedTopology: true,
     useCreateIndex: true,
     useFindAndModify: false,
-
+    poolSize: 5,
 })
 
-mongoose.connection.on('connection', ()=>{
+mongoose.connection.on('connected', ()=>{
 console.log(`Connection open ${uriDb}` );
 })
 
@@ -19,7 +18,7 @@ mongoose.connection.on('error', (e)=>{
     console.log(`Error mongosse conection ${e.message}` );
     })
 
-    mongoose.connection.on('disconnect', (e)=>{
+    mongoose.connection.on('disconnected', (e)=>{
         console.log(`Mongosse disconnect ` );
         })
 

@@ -56,7 +56,7 @@ module.exports = {
     return validate(schemaUpdateStatusContact, req.body, next);
   },
   validateMongoId: (req, res, next)=>{
-    if(!mongoose.Types.ObjectId.isValid(req.params.id)){
+    if(!mongoose.Types.ObjectId.isValid(req.params.contactId)){
       return next({
         status: 400,
         messages: 'Invalid object id'
