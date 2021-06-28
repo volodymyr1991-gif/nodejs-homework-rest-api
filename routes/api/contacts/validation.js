@@ -11,7 +11,7 @@ const schemaCreateContact = Joi.object({
       minDomainSegments: 2,
       tlds: { allow: ["com", "net"] },
     })
-    .required(),
+    .required(), 
   isFavorite: Joi.boolean().optional(),
 });
 
