@@ -12,9 +12,13 @@ const contactsSchema = new Schema({
       phone: {
         type: String,
       },
-      isFavorite: {
-        type: Boolean,
-        default: false,
+      subscription: {
+        type: String,
+        default: "free",
+      },
+      password: {
+        type: String,
+        default: "password",
       },
       owner: {
         type: SchemaTypes.ObjectId,

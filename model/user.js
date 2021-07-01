@@ -6,16 +6,16 @@ const SALT_WORK_FACTOR = 8;
 const userSchema = new Schema({
     password: {
         type: String,
-        required: [true, 'Password is required'],
+        required: [true, 'Enter password for a user'],
       },
       email: {
         type: String,
-        required: [true, 'Email is required'],
+        required: [true, 'Enter email for a user'],
         unique: true,
-       validate(value){
-         const re = /\S+@\.S+/g
-         return re.test(String(value).toLowerCase())
-       }
+      //  validate(value){
+      //    const re = /\S+@\.S+/g
+      //    return re.test(String(value).toLowerCase())
+      //  }
       },
       subscription: {
         type: String,
@@ -50,9 +50,10 @@ this.password= await bcrypt.hash(this.password, salt)
 next()
 })
 
-userSchema.methods.validPassword = async function (password) {
+userSchema.methods.isValidPassword = async function (password) {
   return await bcrypt.compare(password, this.password);
 };
- const Contact = model('contact', userSchema)
+
+ const Contact = model('user', userSchema)
 
  module.exports = Contact

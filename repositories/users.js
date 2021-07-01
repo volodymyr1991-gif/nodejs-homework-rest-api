@@ -1,20 +1,20 @@
-const User = require('../model/user')
+const Contact = require('../model/user')
 
 const findById = async (id)=>{
-return await User.FindById({id})
+return await Contact.findById(id)
 }
 
 const findByEmail = async (email)=>{
-    return await User.FindOne({email})
+    return await Contact.findOne({email})
 }
 
 const  create = async (body)=>{
-    const user = new User(body)
+    const user = new Contact(body)
     return await user.save()
 }   
 
 const updateToken = async (id, token) =>{
- return await User.updateOne({_id: id}, {token})   
+ return await Contact.updateOne({_id: id}, {token})   
 }
 
 module.exports = {

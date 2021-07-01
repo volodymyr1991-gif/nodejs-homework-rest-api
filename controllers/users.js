@@ -1,4 +1,4 @@
-const Users = require("../repositories/users");
+const Users = require('../repositories/users');
 const { HttpCode } = require("../helpers/constans");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
@@ -16,11 +16,11 @@ const register = async (req, res, next) => {
       });
     }
 
-    const { password, subscription, email, token } = await Users.create(req.body);
+    const { password, subscription, email, id } = await Users.create(req.body);
     return res.status(HttpCode.CREATED).json({
       status: "success",
       code: HttpCode.CREATED,
-      data: { password, subscription, email, token },
+      data: { password, subscription, email, id },
     });
   } catch (e) {
     next(e);
@@ -30,7 +30,7 @@ const register = async (req, res, next) => {
 const login = async (req, res, next) => {
   try {
     const user = await Users.findByEmail(req.body.email);
-    const isValidPassword = await user?.isValidPassword(req.body.password);
+    const isValidPassword = await user.isValidPassword(req.body.password);
     if (!user || !isValidPassword) {
       return res.status(HttpCode.UNAUTHORIZED).json({
         status: "error",
@@ -50,10 +50,11 @@ const login = async (req, res, next) => {
 
 const logout = async (req, res, next) => {
   try {
-    const contact = await Users.listContactsAll();
-    return res.json({ status: "success", code: 200, data: { contact } });
+    const id = req.user.id
+    await Users.updateToken(id, null)
+    return res.status(HttpCode.NO_CONTENT).json({})
   } catch (e) {
-    next(e);
+    next(e)
   }
 };
 
