@@ -6,7 +6,6 @@ const contactsRouter = require('./routes/api/contacts')
 const authRouter = require('./routes/api/users')
 const uploadAvatar = require("./routes/api/upload");
 
-
 const app = express()
 
 const formatsLogger = app.get('env') === 'development' ? 'dev' : 'short'
